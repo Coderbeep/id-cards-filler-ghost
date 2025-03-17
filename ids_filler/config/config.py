@@ -1,7 +1,11 @@
 import os
-
+import enum
 import yaml
 
+class TextType(enum.Enum):
+    NAME = enum.auto()
+    SURNAME = enum.auto()
+    AFFILIATION = enum.auto()
 
 class Config:
     config_file = f"{os.path.dirname(os.path.abspath(__file__))}/config.yaml"
@@ -16,6 +20,10 @@ class Config:
             yield type_, type_conf.get('color', '#000000')
 
     @property
+    def name_x_offset(self) -> int:
+        return self.config.get('name_x_offset', 100)
+
+    @property
     def name_y_offset(self) -> int:
         return self.config.get('name_y_offset', 850)
 
@@ -26,7 +34,7 @@ class Config:
     @property
     def affiliation_y_offset(self) -> int:
         return self.config.get('affiliation_y_offset', 1100)
-
+    
     @classmethod
     def _load_config(cls) -> dict:
         with open(cls.config_file, 'r') as fp:
