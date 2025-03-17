@@ -5,7 +5,7 @@ from PIL import Image
 
 from ids_filler import *
 from ids_filler.attendess.attendees_loader import AttendeesLoader
-from ids_filler.config import get_config, Config
+from ids_filler.config import get_config, Config, TextType
 from ids_filler.images.image_loader import ImageLoader
 from ids_filler.images.image_modifier import ImageModifier
 
@@ -29,12 +29,10 @@ def main() -> None:
 def _fill_in_the_card(card_to_fill: Image.Image, attendee: dict, hex_color: str) -> None:
     name, surname = attendee["name"].strip().title().rsplit(" ", 1)
     affiliation = attendee["affiliation"].strip()
-
-    ImageModifier.insert_text(card_to_fill, name, NAME_FONT, hex_color, config.name_y_offset)
-    ImageModifier.insert_text(card_to_fill, surname, NAME_FONT, hex_color, config.surname_y_offset)
-    ImageModifier.insert_text(
-        card_to_fill, affiliation, AFFILIATION_FONT, "#F4F4F4", config.affiliation_y_offset
-    )
+    
+    ImageModifier.insert_text(card_to_fill, name, hex_color, TextType.NAME, config.name_y_offset, config.name_x_offset)
+    ImageModifier.insert_text(card_to_fill, surname, hex_color, TextType.SURNAME, config.surname_y_offset, config.name_x_offset)
+    ImageModifier.insert_text(card_to_fill, affiliation, "#F4F4F4", TextType.AFFILIATION, config.affiliation_y_offset, config.name_x_offset)
 
 
 def _clear_previous_results() -> None:
