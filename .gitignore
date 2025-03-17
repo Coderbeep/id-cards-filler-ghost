@@ -4,7 +4,8 @@ __pycache__/
 
 ids_filler/config/config.yaml
 ids_filler/resources/attendees/*.csv
-ids_filler/
+ids_filler/resources/fonts/*
+ids_filler/results/*
 
 ghost_ids.egg-info/
 build/
